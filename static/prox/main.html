@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PeteZah | Proxy</title>
+    <title>Bubbergames | Proxy</title>
     <link rel="icon" href="storage/images/logo-png-removebg-preview.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <meta property="og:title" content="PeteZah | Proxy">
+    <meta property="og:title" content="bubber | Proxy">
     <meta property="og:description" content="Next-gen proxy browsing">
     <meta property="og:image" content="/storage/images/logo-png-removebg-preview.png">
-    <meta name="keywords" content="PeteZah Proxy, bypass restrictions, web proxy">
+    <meta name="keywords" content="bubber Proxy, bypass restrictions, web proxy">
 
     <style>
         * {
@@ -562,7 +562,7 @@
                     updateSearchBar(iframe);
                     updatePageTitle(iframe);
                 } else {
-                    document.querySelector(`#${currentTabState.url.replace('petezah://', '')}-page`).classList.add('active');
+                    document.querySelector(`#${currentTabState.url.replace('bubber://', '')}-page`).classList.add('active');
                 }
                 const currentTabIndex = tabIndex;
                 tabHistory = tabHistory.filter(index => index !== currentTabIndex);
@@ -674,13 +674,13 @@
                 }
                 switch (proxifiedUrl) {
                     case "/static/index.html":
-                        return "petezah://newtab";
+                        return "bubber://newtab";
                     case "/static/prox/settings.html":
-                        return "petezah://settings";
+                        return "bubber://settings";
                     default:
-                        return proxifiedUrl.includes("bookmarks") ? "petezah://bookmarks" :
-                            proxifiedUrl.includes("history") ? "petezah://history" :
-                                proxifiedUrl.includes("extensions") ? "petezah://extensions" :
+                        return proxifiedUrl.includes("bookmarks") ? "bubber://bookmarks" :
+                            proxifiedUrl.includes("history") ? "bubber://history" :
+                                proxifiedUrl.includes("extensions") ? "bubber://extensions" :
                                     decodeURI(proxifiedUrl);
                 }
             } catch (e) {
@@ -696,21 +696,21 @@
                 if (!input) return;
                 const iframe = document.querySelector('.tab-iframe.active');
                 let url;
-                if (input.startsWith('petezah://')) {
+                if (input.startsWith('bubber://')) {
                     switch (input) {
-                        case 'petezah://newtab':
+                        case 'bubber://newtab':
                             url = '/static/index.html';
                             break;
-                        case 'petezah://settings':
+                        case 'bubber://settings':
                             url = '/static/prox/settings.html';
                             break;
-                        case 'petezah://bookmarks':
+                        case 'bubber://bookmarks':
                             showBookmarks();
                             return;
-                        case 'petezah://history':
+                        case 'bubber://history':
                             showHistory();
                             return;
-                        case 'petezah://extensions':
+                        case 'bubber://extensions':
                             showExtensions();
                             return;
                         default:
@@ -738,7 +738,7 @@
                 internalPages.forEach(page => page.classList.remove('active'));
                 iframe.src = "/static/index.html";
                 currentTabState = { type: 'iframe', url: '/static/index.html' };
-                document.getElementById('search-input').value = "petezah://newtab";
+                document.getElementById('search-input').value = "bubber://newtab";
                 const activeTab = document.querySelector('.tab.active');
                 activeTab.childNodes[0].textContent = "New Tab";
                 updateHistory("/static/index.html");
@@ -784,7 +784,7 @@
                 internalPages.forEach(page => page.classList.remove('active'));
                 iframe.src = "/static/prox/settings.html";
                 currentTabState = { type: 'iframe', url: '/static/prox/settings.html' };
-                document.getElementById('search-input').value = "petezah://settings";
+                document.getElementById('search-input').value = "bubber://settings";
                 const activeTab = document.querySelector('.tab.active');
                 activeTab.childNodes[0].textContent = "Settings";
                 updateHistory("/static/prox/settings.html");
@@ -832,7 +832,7 @@
                 if (currentTabState.type !== 'iframe') return;
                 const iframe = document.querySelector('.tab-iframe.active');
                 const url = getUnproxifiedUrl(iframe.src);
-                if (url.startsWith('petezah://')) return;
+                if (url.startsWith('bubber://')) return;
                 let title;
                 try {
                     title = iframe.contentDocument?.title || "New Bookmark";
@@ -863,20 +863,20 @@
                 const activeTab = document.querySelector('.tab.active');
                 const internalPages = document.querySelectorAll('.internal-page');
                 internalPages.forEach(page => page.classList.remove('active'));
-                if (url.startsWith('petezah://')) {
+                if (url.startsWith('bubber://')) {
                     switch (url) {
-                        case 'petezah://bookmarks':
+                        case 'bubber://bookmarks':
                             showBookmarks();
                             break;
-                        case 'petezah://history':
+                        case 'bubber://history':
                             showHistory();
                             break;
-                        case 'petezah://extensions':
+                        case 'bubber://extensions':
                             showExtensions();
                             break;
                         default:
-                            iframe.src = mapPetezahUrlToSrc(url);
-                            currentTabState = { type: 'iframe', url: mapPetezahUrlToSrc(url) };
+                            iframe.src = mapbubberUrlToSrc(url);
+                            currentTabState = { type: 'iframe', url: mapbubberUrlToSrc(url) };
                     }
                 } else {
                     const encodedUrl = encodeURI(url);
@@ -891,18 +891,18 @@
             }
         }
 
-        function mapPetezahUrlToSrc(url) {
+        function mapbubberUrlToSrc(url) {
             try {
                 switch (url) {
-                    case 'petezah://newtab':
+                    case 'bubber://newtab':
                         return '/static/index.html';
-                    case 'petezah://settings':
+                    case 'bubber://settings':
                         return '/static/prox/settings.html';
                     default:
                         return url;
                 }
             } catch (e) {
-                console.error('Error mapping Petezah URL:', e);
+                console.error('Error mapping Bubber URL:', e);
                 return url;
             }
         }
@@ -919,8 +919,8 @@
                 bookmarksPage.classList.add('active');
 
                 activeTab.childNodes[0].textContent = "Bookmarks";
-                document.getElementById('search-input').value = "petezah://bookmarks";
-                currentTabState = { type: 'internal', url: 'petezah://bookmarks' };
+                document.getElementById('search-input').value = "bubber://bookmarks";
+                currentTabState = { type: 'internal', url: 'bubber://bookmarks' };
 
                 const bookmarkList = bookmarks.map(b => `
                 <li>
@@ -937,7 +937,7 @@
                 <ul>${bookmarkList || '<li>No bookmarks yet.</li>'}</ul>
             `;
 
-                updateHistory("petezah://bookmarks");
+                updateHistory("bubber://bookmarks");
                 toggleMenu();
             } catch (e) {
                 console.error('Error showing bookmarks:', e);
@@ -966,8 +966,8 @@
                 historyPage.classList.add('active');
 
                 activeTab.childNodes[0].textContent = "History";
-                document.getElementById('search-input').value = "petezah://history";
-                currentTabState = { type: 'internal', url: 'petezah://history' };
+                document.getElementById('search-input').value = "bubber://history";
+                currentTabState = { type: 'internal', url: 'bubber://history' };
 
                 const historyList = history.map(h => `
                 <li>
@@ -984,7 +984,7 @@
                 <ul>${historyList || '<li>No history yet.</li>'}</ul>
             `;
 
-                updateHistory("petezah://history");
+                updateHistory("bubber://history");
                 toggleMenu();
             } catch (e) {
                 console.error('Error showing history:', e);
@@ -1104,8 +1104,8 @@
                 extensionsPage.classList.add('active');
 
                 activeTab.childNodes[0].textContent = "Extensions";
-                document.getElementById('search-input').value = "petezah://extensions";
-                currentTabState = { type: 'internal', url: 'petezah://extensions' };
+                document.getElementById('search-input').value = "bubber://extensions";
+                currentTabState = { type: 'internal', url: 'bubber://extensions' };
 
                 const extensionsList = extensions.map(ext => `
                 <div class="extension-card">
@@ -1129,7 +1129,7 @@
                 <div class="extensions-grid">${extensionsList || '<p>No extensions installed.</p>'}</div>
             `;
 
-                updateHistory("petezah://extensions");
+                updateHistory("bubber://extensions");
                 toggleMenu();
             } catch (e) {
                 console.error('Error showing extensions:', e);
@@ -1225,7 +1225,7 @@
         try {
             const initialIframe = document.querySelector('.tab-iframe.active');
             const initialTab = document.querySelector('.tab.active');
-            document.getElementById('search-input').value = "petezah://newtab";
+            document.getElementById('search-input').value = "bubber://newtab";
             updateTabName(initialIframe, initialTab);
 
             document.addEventListener('click', (e) => {
